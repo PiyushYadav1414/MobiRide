@@ -59,7 +59,7 @@ const CaptainLogin = () => {
     <div 
     className='p-7 h-screen flex flex-col justify-between bg-cover bg-center'
     style={{
-      backgroundImage: "url('https://images.unsplash.com/photo-1600320254374-ce2d293c324e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmlkZXNoYXJlfGVufDB8fDB8fHww')"
+      backgroundImage: "url('img4.png')"
     }}
   >
       {isLoading && <Loader />} {/* Show loader when isLoading is true */}

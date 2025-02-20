@@ -54,7 +54,7 @@ const UserLogin = () => {
     <div 
       className='p-7 h-screen flex flex-col justify-between bg-cover bg-center'
       style={{
-        backgroundImage: "url('https://plus.unsplash.com/premium_photo-1661758966103-ee39a36e0c62?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmlkZXNoYXJlfGVufDB8fDB8fHww')"
+        backgroundImage: "url('img3.png')"
       }}
     >
       {isLoading && <Loader />} {/* Show loader when isLoading is true */}
