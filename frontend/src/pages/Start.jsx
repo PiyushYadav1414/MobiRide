@@ -9,7 +9,7 @@ const Start = () => {
       <div className='bg-cover bg-center h-screen pt-8 flex justify-between flex-col w-full' style={{ backgroundImage: "url('start.jpg')" }}>
 
         {/* Logo image with a fixed width */}
-        <img className='w-[14rem] ml-8' src="https://www.coolgenerator.com/Data/Textdesign/202502/33a226f7dd99068d38a18cb5c1223a77.png" alt="" />
+        <img className='w-[14rem] ml-8' src="https://www.coolgenerator.com/Data/Textdesign/202502/e77b995101aba1789c0e2540362ab26b.png" alt="" />
         
         {/* This container holds the title and the button */}
         <div className='bg-white pb-8 py-4 px-4'>
