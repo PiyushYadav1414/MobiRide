@@ -1,15 +1,17 @@
 import React from 'react'
 
 // LocationSearchPanel component accepts props such as suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, and activeField.
-const LocationSearchPanel = ({ suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
+const LocationSearchPanel = ({ suggestions,pickup,destination, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
 
     // Function to handle click on a suggestion
     const handleSuggestionClick = (suggestion) => {
         // Based on the active field (either pickup or destination), update the corresponding state (pickup or destination)
         if (activeField === 'pickup') {
             setPickup(suggestion) // Set the pickup location
+            // console.log("Pickup: "+ pickup);
         } else if (activeField === 'destination') {
             setDestination(suggestion) // Set the destination location
+            // console.log("Pickup: "+ destination);
         }
 // The following lines are commented out but are intended to trigger actions like they open vehicle panel 
 // directly if i setup pickup field and doesnot allow me to setup destination field then as it dretcly 

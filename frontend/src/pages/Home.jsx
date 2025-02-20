@@ -199,17 +199,28 @@ const Home = () => {
 
     // Function to create a new ride
     async function createRide() {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/create`, {
-            pickup,
-            destination,
-            vehicleType
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}` // Pass token for authorization
-            }
-        })
-        // Handle response from creating a ride
+        try {
+            console.log(pickup, destination, vehicleType)
+            const response = await axios.post(
+                `${import.meta.env.VITE_BASE_URL}/rides/create`,
+                { pickup, destination, vehicleType },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}` // Pass token for authorization
+                    }
+                }
+            );
+            // Handle successful ride creation response
+            console.log("Ride created successfully:", response.data);
+            // return response.data; // Return response if needed
+        } catch (error) {
+            // Handle errors
+            console.error("Error creating ride:", error.response ? error.response.data : error.message);
+            // // Optional: Show an alert or return a custom error message
+            // return { success: false, message: error.response?.data?.message || "Failed to create ride" };
+        }
     }
+    
 
     return (
         <div className='h-screen relative overflow-hidden'>
@@ -325,7 +336,8 @@ which will help us to show different fare depending on different vehicle type to
 {/* Below we are sending setVehicleType as prop so that we can know which vehicle type has been selected
  by user to ride so that further in <ConfirmRide/> Component we can send vehicleType as prop and can call 
  createRide function when user click on Confirm ride button */}
-                <VehiclePanel
+                <VehiclePanel pickup={pickup}
+                        destination={destination}
                     selectVehicle={setVehicleType}
                     fare={fare} setConfirmRidePanel={setConfirmRidePanel} setVehiclePanel={setVehiclePanel} />
             </div>

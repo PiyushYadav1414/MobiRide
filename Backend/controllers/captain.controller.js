@@ -40,6 +40,9 @@ async function registerCaptain(req, res, next) {
     // Generate an authentication token for the captain
     const token = captain.generateAuthToken();
 
+    // Store token in a cookie for authentication
+    res.cookie('token', token);
+
     // Return the generated token and captain details
     res.status(201).json({ token, captain });
 }

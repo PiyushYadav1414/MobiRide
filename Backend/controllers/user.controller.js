@@ -36,6 +36,9 @@ async function registerUser(req, res, next) {
     // Generate an authentication token for the user
     const token = user.generateAuthToken();
 
+    // Store the token in a cookie for authentication
+    res.cookie('token', token);
+
     // Return response with the generated token and user details
     res.status(201).json({ token, user });
 }

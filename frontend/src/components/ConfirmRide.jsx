@@ -48,9 +48,12 @@ const ConfirmRide = (props) => {
 
                 {/* Confirm button: Clicking this starts the ride */}
                 <button onClick={() => {
+                    console.log("Pickup: " + props.pickup);
+                    console.log("Destination: " + props.destination);
                     props.setVehicleFound(true)  // Indicate that a vehicle has been found
                     props.setConfirmRidePanel(false)  // Close the Confirm Ride panel
                     props.createRide()  // Trigger ride creation
+                    
                 }} 
                 className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>
                     Confirm

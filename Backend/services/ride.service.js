@@ -57,7 +57,7 @@ async function createRide({ user, pickup, destination, vehicleType }) {
         otp: getOtp(6), // Generate a 6-digit OTP for the ride by calling getOpt function above
         fare: fare[vehicleType] // Calculate the fare based on the vehicle type selected by user to ride
     });
-
+    console.log(ride);
    
 
     return ride; // Return the created ride

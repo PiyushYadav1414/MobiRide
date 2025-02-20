@@ -17,6 +17,7 @@ async function createRide(req, res) {
 
     // Extract ride details from the request body
     const {  pickup, destination, vehicleType } = req.body;
+    console.log(pickup, destination, vehicleType)
     try {
         // Create a new ride record
         const ride = await rideService.createRide({ user: req.user._id, pickup, destination, vehicleType });
