@@ -28,7 +28,7 @@ const LocationSearchPanel = ({ suggestions,pickup,destination, setVehiclePanel, 
             {
                 suggestions.map((elem, idx) => (
                     // Each suggestion is wrapped in a div with click handler to select the suggestion
-                    <div key={idx} onClick={() => handleSuggestionClick(elem)} className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'>
+                    <div key={idx}  onMouseDown={() => handleSuggestionClick(elem)} className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'>
                         {/* Icon representing the suggestion */}
                         <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'>
                             <i className="ri-map-pin-fill"></i> {/* Map pin icon */}

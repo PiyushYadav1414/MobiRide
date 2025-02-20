@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { SocketContext } from '../context/SocketContext';
 import { CaptainDataContext } from '../context/CapatainContext';
 import axios from 'axios';
+import Loader from '../components/Loader'; // Importing the Loader component
 
 const CaptainHome = () => {
     // State to manage the visibility of ride and confirmation popups
@@ -24,6 +25,8 @@ const CaptainHome = () => {
     // Accessing socket connection and captain data from context
     const { socket } = useContext(SocketContext);
     const { captain } = useContext(CaptainDataContext);
+
+    const [isLoading, setIsLoading] = useState(false); // Loader state
 
 // Effect to handle socket events and location updates.Join the user to the socket when the component 
 // mounts. In below we are calling event name 'join from socket.js file in backend and we are sending 
@@ -75,25 +78,33 @@ const CaptainHome = () => {
 // socket we will emit event name ride-confirmed and will notify user that his ride is accpeted by any 
 // captain and will give open panel for user which has driver detail along with OTP to share
     async function confirmRide() {
-        const response = await axios.post(
-            `${import.meta.env.VITE_BASE_URL}/rides/confirm`,
-            {
-                rideId: ride._id,
-                captainId: captain._id,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+        setIsLoading(true); // Start loading
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_BASE_URL}/rides/confirm`,
+                {
+                    rideId: ride._id,
+                    captainId: captain._id,
                 },
-            }
-        );
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
 
-        // Close ride popup and open confirmation popup
-        setRidePopupPanel(false);
-        setConfirmRidePopupPanel(true);
+            // Close ride popup and open confirmation popup
+            setRidePopupPanel(false);
+            setConfirmRidePopupPanel(true);
+        } catch (error) {
+            console.error("Error confirming ride:", error);
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
     }
 
-    // Animation for ride popup panel using GSAP
+
+ // Animation for ride popup panel using GSAP
     useGSAP(
         function () {
             if (ridePopupPanel) {
@@ -127,6 +138,7 @@ const CaptainHome = () => {
 
     return (
         <div className="h-screen">
+            {isLoading && <Loader />} {/* Show loader when isLoading is true */}
             {/* Header with Uber logo and logout button */}
             <div className="fixed p-6 top-0 flex items-center justify-between w-screen">
                 <img

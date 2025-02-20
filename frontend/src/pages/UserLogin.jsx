@@ -1,13 +1,15 @@
- // Importing necessary React functions and modules  
+// Importing necessary React functions and modules  
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom' // Importing navigation tools
 import { UserDataContext } from '../context/UserContext' // Importing user context for global user state
 import axios from 'axios' // Importing axios for API requests
+import Loader from '../components/Loader' // Importing the Loader component
 
 const UserLogin = () => {
   // State to store user email and password input
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false) // New state for loading
 
   // Accessing user context to manage logged-in user state  
   const { setUser } = useContext(UserDataContext) 
@@ -18,6 +20,7 @@ const UserLogin = () => {
   // Function to handle form submission  
   const submitHandler = async (e) => {
     e.preventDefault(); // Prevents the page from reloading on form submission
+    setIsLoading(true) // Start loading
 
     // Creating an object with user input data  
     const userData = {
@@ -25,15 +28,21 @@ const UserLogin = () => {
       password: password
     }
 
-    // Sending a POST request to the server for login  
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
+    try {
+      // Sending a POST request to the server for login  
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
 
-    // If login is successful (status 200), store user data and navigate to the home page  
-    if (response.status === 200) {
-      const data = response.data // The response will have token and user 
-      setUser(data.user) // Updating global user state
-      localStorage.setItem('token', data.token) // Storing authentication token in local storage
-      navigate('/home') // Redirecting user to home page
+      // If login is successful (status 200), store user data and navigate to the home page  
+      if (response.status === 200) {
+        const data = response.data // The response will have token and user 
+        setUser(data.user) // Updating global user state
+        localStorage.setItem('token', data.token) // Storing authentication token in local storage
+        navigate('/home') // Redirecting user to home page
+      }
+    } catch (error) {
+      console.error("Login failed:", error)
+    } finally {
+      setIsLoading(false) // Stop loading regardless of outcome
     }
 
     // Clearing input fields after submission  
@@ -42,10 +51,17 @@ const UserLogin = () => {
   }
 
   return (
-    <div className='p-7 h-screen flex flex-col justify-between'>
-      <div>
+    <div 
+      className='p-7 h-screen flex flex-col justify-between bg-cover bg-center'
+      style={{
+        backgroundImage: "url('https://plus.unsplash.com/premium_photo-1661758966103-ee39a36e0c62?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmlkZXNoYXJlfGVufDB8fDB8fHww')"
+      }}
+    >
+      {isLoading && <Loader />} {/* Show loader when isLoading is true */}
+      <div className='bg-white p-6 mt-[8rem] rounded-lg shadow-lg'>
+        
         {/* App Logo */}
-        <img className='w-16 mb-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYQy-OIkA6In0fTvVwZADPmFFibjmszu2A0g&s" alt="App Logo" />
+        <img className='w-[10rem] mb-7' src="https://www.coolgenerator.com/Data/Textdesign/202502/a366f73903697d91f7a6f7d5aa845c33.png" alt="App Logo" />
 
         {/* Login Form */}
         <form onSubmit={submitHandler}>
@@ -75,7 +91,10 @@ const UserLogin = () => {
           {/* Login Button */}
           <button
             className='bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
-          >Login</button>
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
 
         {/* Link to UserSignup Page */}

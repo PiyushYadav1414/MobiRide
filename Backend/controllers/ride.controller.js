@@ -17,7 +17,7 @@ async function createRide(req, res) {
 
     // Extract ride details from the request body
     const {  pickup, destination, vehicleType } = req.body;
-    console.log(pickup, destination, vehicleType)
+    console.log(pickup, destination, vehicleType);
     try {
         // Create a new ride record
         const ride = await rideService.createRide({ user: req.user._id, pickup, destination, vehicleType });
@@ -38,7 +38,7 @@ async function createRide(req, res) {
 
 // Populate ride details with full user information as well not just userID it will give full userSchema
 //  like his furstName, lastName, email along with the ride information  
-        const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user');
+        const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user').select('user pickup destination fare status duration distance');;
 
         // Notify all nearby captains about the new ride request
         captainsInRadius.forEach((captain) => {

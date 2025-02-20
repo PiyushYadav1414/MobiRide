@@ -13,7 +13,7 @@ const RidePopUp = (props) => {
             {/* Heading for new ride notification */}
             <h3 className='text-2xl font-semibold mb-5'>New Ride Available!</h3>
 
-            {/* Ride details card displaying user info and distance */}
+            {/* Ride details card displaying user info, distance, and duration */}
             <div className='flex items-center justify-between p-3 bg-yellow-400 rounded-lg mt-4'>
                 <div className='flex items-center gap-3'>
                     {/* User's profile picture */}
@@ -27,10 +27,14 @@ const RidePopUp = (props) => {
                         {props.ride?.user.fullname.firstname + " " + props.ride?.user.fullname.lastname}
                     </h2>
                 </div>
-                {/* Distance of the ride */}
-                <h5 className='text-lg font-semibold'>7.2 KM</h5>
+                <div className='text-right'>
+                    {/* Distance of the ride */}
+                    <h5 className='text-lg font-semibold'>{props.ride?.distance} Km</h5>
+                    {/* Duration of the ride */}
+                    <h5 className='text-md'>{props.ride?.duration} min</h5>
+                </div>
             </div>
-
+            
             {/* Ride pickup, destination, and fare details */}
             <div className='flex gap-2 justify-between flex-col items-center'>
                 <div className='w-full mt-5'>

@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { CaptainDataContext } from '../context/CapatainContext'
+import Loader from '../components/Loader' // Importing the Loader component
 
 const CaptainLogin = () => {
   // State variables to store email and password input values
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false) // New state for loading
 
   // Accessing the CaptainDataContext to manage logged-in captain data
   const { captain, setCaptain } = React.useContext(CaptainDataContext)
@@ -18,6 +20,7 @@ const CaptainLogin = () => {
   // Function to handle form submission
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true) // Start loading
 
     // Object to send in the login request
     const captain = {
@@ -47,14 +50,23 @@ const CaptainLogin = () => {
       setPassword('')
     } catch (error) {
       console.error("Login failed:", error)
+    } finally {
+      setIsLoading(false) // Stop loading regardless of outcome
     }
   }
 
   return (
-    <div className='p-7 h-screen flex flex-col justify-between'>
-      <div>
+    <div 
+    className='p-7 h-screen flex flex-col justify-between bg-cover bg-center'
+    style={{
+      backgroundImage: "url('https://images.unsplash.com/photo-1600320254374-ce2d293c324e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmlkZXNoYXJlfGVufDB8fDB8fHww')"
+    }}
+  >
+      {isLoading && <Loader />} {/* Show loader when isLoading is true */}
+      <div className='bg-white p-6 mt-[2rem] rounded-lg shadow-lg'>
         {/* Logo for the captain login page */}
-        <img className='w-20 mb-3' src="https://www.svgrepo.com/show/505031/uber-driver.svg" alt="Captain Logo" />
+        <img className='w-[10rem] mb-7' src="https://www.coolgenerator.com/Data/Textdesign/202502/a366f73903697d91f7a6f7d5aa845c33.png" alt="App Logo" />
+
 
         {/* Login form */}
         <form onSubmit={(e) => submitHandler(e)}>
@@ -82,7 +94,10 @@ const CaptainLogin = () => {
           {/* Login button */}
           <button
             className='bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
-          >Login</button>
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
 
         {/* Link to the captain registration page */}

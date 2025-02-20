@@ -6,15 +6,15 @@ const Start = () => {
   return (
     <div>
       {/* This is the main container with a background image that covers the screen */}
-      <div className='bg-cover bg-center bg-[url(https://images.unsplash.com/photo-1619059558110-c45be64b73ae?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] h-screen pt-8 flex justify-between flex-col w-full'>
+      <div className='bg-cover bg-center bg-[url(https://img.freepik.com/free-photo/close-up-friends-holding-smartphone_23-2149137129.jpg?t=st=1740064861~exp=1740068461~hmac=0b6630ec9a7fae0a169eee894fee49605513d6ee3b4e61a8a7aee834ec0536c6&w=1800)] h-screen pt-8 flex justify-between flex-col w-full'>
         
         {/* Logo image with a fixed width */}
-        <img className='w-16 ml-8' src="https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoid2VhcmVcL2ZpbGVcLzhGbTh4cU5SZGZUVjUxYVh3bnEyLnN2ZyJ9:weare:F1cOF9Bps96cMy7r9Y2d7affBYsDeiDoIHfqZrbcxAw?width=1200&height=417" alt="" />
+        <img className='w-[14rem] ml-8' src="https://www.coolgenerator.com/Data/Textdesign/202502/33a226f7dd99068d38a18cb5c1223a77.png" alt="" />
         
         {/* This container holds the title and the button */}
         <div className='bg-white pb-8 py-4 px-4'>
           {/* The title of the section */}
-          <h2 className='text-[30px] font-semibold'>Get Started with Uber</h2>
+          <h2 className='text-[30px] font-semibold'>Get Started with MobiRide</h2>
           
   {/* This is a button that links to the '/login' route and will redirect us to UserLogin Component*/}
           <Link to='/login' className='flex items-center justify-center w-full bg-black text-white py-3 rounded-lg mt-5'>

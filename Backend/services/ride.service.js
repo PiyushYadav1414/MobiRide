@@ -48,6 +48,15 @@ async function createRide({ user, pickup, destination, vehicleType }) {
 
     // Get the fare for the ride based on pickup, destination, and vehicle type
     const fare = await getFare(pickup, destination);
+    
+     // Get the distance and duration between the pickup and destination from the map service
+    const distanceTime = await mapService.getDistanceTime(pickup, destination);
+
+    // Convert distance to kilometers (rounded to 2 decimal places)
+    const distanceInKm = Number((distanceTime.distance.value / 1000).toFixed(2));
+
+    // Convert duration to minutes
+    const durationInMinutes = Math.round(distanceTime.duration.value / 60);
 
     // Create a new ride in the database with the user, pickup, destination, OTP, and fare
     const ride =  await Ride.create({
@@ -55,7 +64,9 @@ async function createRide({ user, pickup, destination, vehicleType }) {
         pickup,
         destination,
         otp: getOtp(6), // Generate a 6-digit OTP for the ride by calling getOpt function above
-        fare: fare[vehicleType] // Calculate the fare based on the vehicle type selected by user to ride
+        fare: fare[vehicleType], // Calculate the fare based on the vehicle type selected by user to ride
+        distance: distanceInKm,
+        duration: durationInMinutes
     });
     console.log(ride);
    

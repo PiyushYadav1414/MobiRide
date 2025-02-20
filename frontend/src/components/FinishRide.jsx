@@ -2,17 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import Loader from './Loader'
 
 const FinishRide = (props) => {
-
     // useNavigate hook for navigation
     const navigate = useNavigate()
-
+        const[isLoading,setIsLoading]=useState(false)
 // Function to end the ride, making a POST request to ride.controller.js to end the ride  and update its
 // status to be completed and will notify the user using socket.io that ride has been completed(ended)
 // by emiting event name 'ride-ended' and we will further navigate teh suer to Home.jsx after ride is ended
     async function endRide() {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`, {
+        setIsLoading(true)
+        try{ const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`, {
             rideId: props.ride._id  // Sending the ride ID to end the specific ride
         }, {
             headers: {
@@ -23,11 +25,16 @@ const FinishRide = (props) => {
         // On successful response, navigate to captain-home page
         if (response.status === 200) {
             navigate('/captain-home')
+        }}catch(e){
+            console.log(e)
+        }finally{
+            setIsLoading(false)
         }
     }
 
     return (
         <div>
+             {isLoading && <Loader />}
             {/* Close button to hide the Finish Ride panel */}
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
                 props.setFinishRidePanel(false)  // Hides the panel when clicked
@@ -46,7 +53,12 @@ const FinishRide = (props) => {
                     <h2 className='text-lg font-medium'>{props.ride?.user.fullname.firstname}</h2>
                 </div>
                 {/* Distance of the ride */}
-                <h5 className='text-lg font-semibold'>2.2 KM</h5>
+                <div className='text-right'>
+                    {/* Distance of the ride */}
+                    <h5 className='text-lg font-semibold'>{props.ride?.distance} Km</h5>
+                    {/* Duration of the ride */}
+                    <h5 className='text-md'>{props.ride?.duration} min</h5>
+                </div>
             </div>
             
             {/* Ride details */}
@@ -84,9 +96,10 @@ const FinishRide = (props) => {
                 <div className='mt-10 w-full'>
           {/* On the click of Finish Ride button endRide function wil bbe trigerred           */}
                     <button
+                         disabled={isLoading}
                         onClick={endRide}  // Trigger endRide function when clicked
                         className='w-full mt-5 flex text-lg justify-center bg-green-600 text-white font-semibold p-3 rounded-lg'>
-                        Finish Ride
+                        {isLoading?"Finishing":"Finish Ride"}
                     </button>
                 </div>
             </div>
