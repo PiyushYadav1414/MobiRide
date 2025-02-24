@@ -33,9 +33,9 @@ const ConfirmRidePopUp = (props) => {
                 }
             })
 
-            // If the response is successful, proceed to update the state and navigate to the captain riding page
-            // Here ride.controller.jsx is notifying that the OTP entered by captain has been verified and ride status has been updated to ongoing and ride has been started .
-            // And we will navigate the captain to CaptainRiding.jsx page
+// If the response is successful, proceed to update the state and navigate to the captain riding page
+// Here ride.controller.jsx is notifying that the OTP entered by captain has been verified and ride status has been updated to ongoing and ride has been started .
+// And we will navigate the captain to CaptainRiding.jsx page
             if (response.status === 200) {
                 props.setConfirmRidePopupPanel(false) // Close the confirm ride popup
                 props.setRidePopupPanel(false) // Close the initial ride popup
