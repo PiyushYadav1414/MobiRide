@@ -27,6 +27,7 @@ const VehiclePanel = (props) => {
             {/* UberGo vehicle selection option */}
             <div onClick={() => {
                 props.setConfirmRidePanel(true) // Open the ride confirmation panel
+                props.setVehiclePanel(false)
                 props.selectVehicle('car') // Set the selected vehicle type to 'car'
             }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between'>
 
@@ -47,6 +48,7 @@ const VehiclePanel = (props) => {
             {/* Moto vehicle selection option */}
             <div onClick={() => {
                 props.setConfirmRidePanel(true) // Open the ride confirmation panel
+                props.setVehiclePanel(false)
                 props.selectVehicle('moto') // Set the selected vehicle type to 'moto'
             }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between'>
 
@@ -67,6 +69,7 @@ const VehiclePanel = (props) => {
             {/* UberAuto vehicle selection option */}
             <div onClick={() => {
                 props.setConfirmRidePanel(true) // Open the ride confirmation panel
+                props.setVehiclePanel(false)
                 props.selectVehicle('auto') // Set the selected vehicle type to 'auto'
             }} className='flex border-2 active:border-black mb-2 rounded-xl w-full p-3 items-center justify-between'>
 

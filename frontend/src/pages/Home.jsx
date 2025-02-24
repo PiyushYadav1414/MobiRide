@@ -144,8 +144,10 @@ const Home = () => {
     useGSAP(function () {
         if (confirmRidePanel) {
             gsap.to(confirmRidePanelRef.current, { transform: 'translateY(0)' }) // Show confirm ride panel
+            // console.log("confirmRide panel animated in")
         } else {
             gsap.to(confirmRidePanelRef.current, { transform: 'translateY(100%)' }) // Hide confirm ride panel
+            // console.log("confirmRide panel animated out")
         }
     }, [ confirmRidePanel ])
 
@@ -153,8 +155,10 @@ const Home = () => {
     useGSAP(function () {
         if (vehicleFound) {
             gsap.to(vehicleFoundRef.current, { transform: 'translateY(0)' }) // Show vehicle found panel
+            // console.log("vehicleFound panel animated in")
         } else {
-            gsap.to(vehicleFoundRef.current, { transform: 'translateY(100%)' }) // Hide vehicle found panel
+            gsap.to(vehicleFoundRef.current, { transform: 'translateY(105%)' }) // Hide vehicle found panel
+            // console.log("vehicleFound panel animated out")
         }
     }, [ vehicleFound ])
 
@@ -183,6 +187,7 @@ const Home = () => {
             setVehiclePanel(true) // Show vehicle panel
             setPanelOpen(false) // Close the search panel
             setInputAreaFullHeight(false); // Shrink input area when "Find Trip" is clicked
+            // setVehicleFound(false)
             console.log("Pickup: "+ pickup);
             console.log("Destination: "+ destination);
 
@@ -241,6 +246,7 @@ const Home = () => {
                 {/* Temporary live tracking display */}
                 <LiveTracking pickup={pickup} destination={destination}/>
             </div>
+            
 
             {/* Input Area. Jese hi input field like pickup or destination pe user click krega vse hi setInputAreaFullHeight(true);
             and iske corresonding wala gsap function hmare div ki height ko 30% se 100% krdega by targeting inputAreaRef*/}
@@ -374,7 +380,6 @@ const Home = () => {
                 with captain  */}
                 <WaitingForDriver
                     ride={ride}
-                    setVehicleFound={setVehicleFound}
                     setWaitingForDriver={setWaitingForDriver}
                     waitingForDriver={waitingForDriver} />
             </div>
