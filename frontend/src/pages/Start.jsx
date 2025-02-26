@@ -10,7 +10,7 @@ const Start = () => {
 
         {/* Logo image with a fixed width */}
 
-        <img className='w-[14rem] ml-5' src="https://www.coolgenerator.com/Data/Textdesign/202502/e77b995101aba1789c0e2540362ab26b.png" alt="" />
+        <img className='w-[14rem] ml-5' src="https://www.coolgenerator.com/Data/Textdesign/202502/e77b995101aba1789c0e2540362ab26b.png" alt="Image Not Found" />
 
       
 
